@@ -1,0 +1,70 @@
+<?php
+session_start();
+
+if (isset($_COOKIE['username'])) {
+    $username = $_COOKIE['username'];
+    $file = fopen("users.txt", "r");
+    while (($line = fgets($file)) !== false) {
+        $fields = explode(",", trim($line));
+        if ($fields[0] == $username) {
+            $fullname = $fields[2] . ' ' . $fields[3];
+            break;
+        }
+    }
+    fclose($file);
+} else {
+    header("Location: login.php");
+    exit();
+}
+?>
+
+<!DocType html>
+<html lang="en">
+<head>
+    <!-- -->
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
+    <title>Best EduNy</title>
+    <link rel="stylesheet" href = "css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/1320f1c566.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<section class = "header">
+    <nav>
+        <i class="fa-solid fa-bars""></i>
+        <a href = "cabinet.php"><img src = "../FinalProjectWork/images/logo.png" alt=""></a>
+        <div class = "nav-links">
+            <ul>
+                <li> <a href = "index.php"> Главная </a></li>
+                <li> <a href = "partners.html"> Партнеры </a></li>
+                <li> <a href = "models.html"> Модели </a></li>
+                <li> <a href = "aboutUs.html"> О нас </a></li>
+                <li>
+                    <a href="#">
+                        <div class="user-box">
+                            <span class="user-name" style="color: black"><?php echo $fullname?></span> <span class="user-icon"><i class="fa-solid fa-user"></i></span>
+                        </div>
+                    </a>
+                    <div class="sub-menu">
+                        <ul>
+                            <li><a href="logout.php" style="color: black">Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+</section>
+<section class="banner">
+    <center><h1>StarQ</h1></center>
+    <img src="images/banner-image.jpg" alt="Banner Image">
+    <div class = "text-box">
+
+    </div>
+</section>
+
+</body>
+</html>
